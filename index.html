@@ -3,72 +3,114 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ujjwal Kr Swargiary — ECE Student</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+  <title>akarui_uks — Portfolio</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>♰</text></svg>">
+  
+  <!-- Gothic Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@600;800;900&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div class="wrapper">
+    <!-- Top Navigation -->
     <header class="top-nav">
       <div class="brand">
         <span class="status-dot"></span>
-        <span class="brand-text">Ujjwal Kr Swargiary</span>
+        <span class="brand-text">akarui_uks</span>
       </div>
       <div class="nav-right">
         <nav>
           <a href="#about">About</a>
           <a href="#skills">Skills</a>
-          <a href="#projects">Work</a>
+          <a href="#projects">Projects</a>
           <a href="#contact">Contact</a>
         </nav>
-        <button id="theme-toggle" aria-label="Toggle theme">◐</button>
+        <button id="theme-toggle" aria-label="Toggle theme">♰</button>
       </div>
     </header>
 
     <main>
-      <section id="about" class="hero">
-        <p class="role-label">Electronics & Communication Engineering Student</p>
-        <h1 class="headline">Learning C/C++, exploring low-level coding, and building practical engineering projects.</h1>
-        <p class="bio">
-          2nd-year undergraduate interested in programming fundamentals, robotics competitions, and electronics lab simulations.
-        </p>
+      <!-- Instagram-Style Post Hero Card -->
+      <section id="about" class="insta-card">
+        <!-- Post Header -->
+        <div class="insta-header">
+          <div class="insta-user-info">
+            <img src="avatar.png" alt="Avatar" class="insta-mini-avatar">
+            <div class="insta-user-text">
+              <span class="insta-username">akarui_uks</span>
+              <span class="insta-location">Cathedral Vault • ECE</span>
+            </div>
+          </div>
+          <span class="insta-more">•••</span>
+        </div>
+
+        <!-- Post Center Image -->
+        <div class="insta-image-container">
+          <img src="avatar.png" alt="Profile Display" class="insta-main-img">
+        </div>
+
+        <!-- Action Bar -->
+        <div class="insta-actions">
+          <div class="insta-actions-left">
+            <button class="action-btn" id="like-btn" title="Like">♥</button>
+            <button class="action-btn" title="Comment">💬</button>
+            <button class="action-btn" title="Share">↗</button>
+          </div>
+          <button class="action-btn" title="Bookmark">⚲</button>
+        </div>
+
+        <!-- Details & Caption -->
+        <div class="insta-details">
+          <div class="insta-likes">Liked by <strong id="like-count">1,248</strong> others</div>
+          <p class="role-label">Electronics & Communication Engineering</p>
+          <h1 class="headline">Building systems, learning low-level code, and exploring hardware.</h1>
+          <p class="bio">
+            <span class="insta-bold-author">akarui_uks</span> 2nd-year undergraduate interested in C/C++ fundamentals, robotics competitions, and embedded electronics.
+          </p>
+          <span class="insta-timestamp">JUST NOW</span>
+        </div>
       </section>
 
+      <!-- Skills Section -->
       <section id="skills" class="section">
-        <div class="section-title">Current Stack & Tools</div>
+        <h2 class="section-title">Disciplines & Skills</h2>
         <div class="skills-layout">
           <div class="skill-group">
-            <div class="group-label">Languages</div>
-            <p>C, C++, Python (Basics), HTML/CSS</p>
+            <span class="group-label">Languages</span>
+            <p>C, C++, HTML5, CSS3, JavaScript</p>
           </div>
           <div class="skill-group">
-            <div class="group-label">Tools & Environment</div>
-            <p>VS Code, GCC / MinGW, Windows PowerShell, Git & GitHub</p>
+            <span class="group-label">Hardware & Tools</span>
+            <p>Git, GitHub Pages, VS Code, Digital Logic, Circuit Simulation</p>
           </div>
           <div class="skill-group">
-            <div class="group-label">Electronics & Labs</div>
-            <p>Digital Logic (74-series ICs), Breadboard Circuits, Motor Control Basics</p>
+            <span class="group-label">Core Interests</span>
+            <p>Embedded Systems, Low-Level Programming, Systems Architecture</p>
           </div>
         </div>
       </section>
 
+      <!-- Projects Section -->
       <section id="projects" class="section">
-        <div class="section-title">Projects & Experience</div>
-        
+        <h2 class="section-title">Selected Works</h2>
         <div class="project-list">
+          
           <article class="project-item">
             <div class="project-meta">
               <span class="year">2026</span>
-              <span class="tag">Robotics</span>
+              <span class="tag">Hardware / Robotics</span>
             </div>
             <div class="project-content">
-              <h3>TechnoXian Robo-Hockey Bot <span class="badge">1st Place</span></h3>
-              <p>Helped build and test a competitive mobile bot with dual motor drive and wireless control for the zonal championship.</p>
+              <h3>Robo-Hockey Bot <span class="badge">Active</span></h3>
+              <p>Custom competitive robotics platform designed for speed, agility, and wireless control in arena hockey matches.</p>
               <div class="tech-row">
-                <span>C++ / Arduino</span>
+                <span>Embedded C</span>
                 <span>Motor Drivers</span>
-                <span>Hardware</span>
+                <span>RF Transceiver</span>
               </div>
             </div>
           </article>
@@ -76,53 +118,39 @@
           <article class="project-item">
             <div class="project-meta">
               <span class="year">2026</span>
-              <span class="tag">C Programming</span>
+              <span class="tag">Web</span>
             </div>
             <div class="project-content">
-              <h3>C / C++ Systems & Logic Practice</h3>
-              <p>Programs focusing on arrays, pointers, bitwise logic operations, and fundamental algorithm design.</p>
+              <h3>Personal Website</h3>
+              <p>Personal portfolio and project showcase built with HTML and CSS.</p>
               <div class="tech-row">
-                <span>C</span>
-                <span>C++</span>
-                <span>GCC</span>
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>JavaScript</span>
               </div>
             </div>
           </article>
 
-          <article class="project-item">
-            <div class="project-meta">
-              <span class="year">2026</span>
-              <span class="tag">Web & Hosting</span>
-            </div>
-            <div class="project-content">
-              <h3>Local Server & Portfolio Site</h3>
-              <p>Configured a lightweight web server from scratch on Windows using Python and exposed it securely via Cloudflare tunnels.</p>
-              <div class="tech-row">
-                <span>HTML/CSS</span>
-                <span>Python</span>
-                <span>Cloudflare</span>
-              </div>
-            </div>
-          </article>
         </div>
       </section>
 
+      <!-- Contact Section -->
       <section id="contact" class="section">
-        <div class="section-title">Connect</div>
+        <h2 class="section-title">Inquiries</h2>
         <div class="contact-box">
-          <p>Always open to connecting with fellow engineering students, developers, and collaborators.</p>
+          <p>Open for discussions regarding engineering projects, collaboration, or development.</p>
           <div class="contact-links">
-            <a href="https://github.com/akarui-uks" target="_blank" rel="noopener noreferrer" class="link-btn">GitHub ↗</a>
-            <a href="https://www.linkedin.com/in/ujjwal-kr-swargiary-53b837354/" target="_blank" rel="noopener noreferrer" class="link-btn">LinkedIn ↗</a>
-            <a href="mailto:akarui@myyahoo.com" class="link-btn">Email ↗</a>
+            <a href="mailto:akarui@myyahoo.com" class="link-btn">Email Me</a>
+            <a href="https://github.com/akarui-uks" target="_blank" rel="noopener noreferrer" class="link-btn">GitHub</a>
           </div>
         </div>
       </section>
     </main>
 
+    <!-- Footer -->
     <footer>
-      <span>Hosted locally on laptop</span>
-      <span>© 2026 Ujjwal Kr Swargiary</span>
+      <span>© 2026 akarui_uks</span>
+      <span>Minimalist Edition</span>
     </footer>
   </div>
 
