@@ -57,7 +57,7 @@
         <div class="insta-actions">
           <div class="insta-actions-left">
             <button class="action-btn" id="like-btn" title="Like">♥</button>
-            <button class="action-btn" title="Comment">💬</button>
+            <button class="action-btn" id="focus-comment-btn" title="Comment">💬</button>
             <button class="action-btn" title="Share">↗</button>
           </div>
           <button class="action-btn" title="Bookmark">⚲</button>
@@ -72,6 +72,24 @@
             <span class="insta-bold-author">akarui_uks</span> 2nd-year undergraduate interested in C/C++ fundamentals, robotics competitions, and embedded electronics.
           </p>
           <span class="insta-timestamp">JUST NOW</span>
+
+          <!-- Dynamic Comments List -->
+          <div class="comments-section">
+            <div id="comments-list" class="comments-list">
+              <!-- Default sample comments -->
+              <div class="comment-item">
+                <span class="comment-author">fellow_dev</span>
+                <span class="comment-text">Clean setup and vibe! ⚡</span>
+              </div>
+            </div>
+
+            <!-- Add Comment Form -->
+            <form id="comment-form" class="comment-form">
+              <input type="text" id="comment-user" placeholder="Name" class="comment-input comment-user-input" required maxlength="25">
+              <input type="text" id="comment-text" placeholder="Add a comment..." class="comment-input comment-text-input" required maxlength="120">
+              <button type="submit" class="comment-post-btn">Post</button>
+            </form>
+          </div>
         </div>
       </section>
 
@@ -150,7 +168,7 @@
     <!-- Footer -->
     <footer>
       <span>© 2026 akarui_uks</span>
-      <span>PORK LOVER</span>
+      <span>OMA BEDOR</span>
     </footer>
   </div>
 
