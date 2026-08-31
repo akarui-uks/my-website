@@ -9,14 +9,450 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@600;800;900&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="style.css">
 
-<meta property="og:title" content="akarui_uks — Portfolio">
-<meta property="og:description" content="Engineering projects, low-level programming, and hardware systems.">
-<meta property="og:image" content="https://omabedor.space/avatar.png">
-<meta property="og:url" content="https://omabedor.space">
-<meta name="twitter:card" content="summary_large_image">
+  <meta property="og:title" content="akarui_uks — Portfolio">
+  <meta property="og:description" content="Engineering projects, low-level programming, and hardware systems.">
+  <meta property="og:image" content="https://omabedor.space/avatar.png">
+  <meta property="og:url" content="https://omabedor.space">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <style>
+    :root {
+      --bg-color: #0b0c0e;
+      --card-bg: #111317;
+      --card-inner: #07080a;
+      --border-color: #232730;
+      --text-main: #ede8df;
+      --text-muted: #8b929e;
+      --gold: #d4af37;
+      --gold-glow: rgba(212, 175, 55, 0.15);
+      --crimson: #ef4444;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image: radial-gradient(circle at 50% 15%, rgba(212, 175, 55, 0.04), transparent 60%);
+      background-attachment: fixed;
+    }
+
+    /* Wrapper */
+    .wrapper {
+      max-width: 520px;
+      width: 100%;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Navigation Header */
+    .top-nav {
+      width: 100%;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      background-color: rgba(11, 12, 14, 0.95);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #22c55e;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+    }
+
+    .brand-text {
+      font-family: 'Grenze Gotisch', Georgia, serif;
+      font-size: 1.35rem;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    nav {
+      display: flex;
+      gap: 12px;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    #theme-toggle {
+      background: none;
+      border: 1px solid var(--border-color);
+      color: var(--gold);
+      padding: 3px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      padding: 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Instagram Post Card */
+    .insta-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Post Header */
+    .insta-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .insta-user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .insta-mini-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--gold);
+      object-fit: cover;
+    }
+
+    .insta-user-text {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .insta-username {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--text-main);
+    }
+
+    .insta-location {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .insta-more {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    /* Image Container */
+    .insta-image-container {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background-color: #060708;
+      overflow: hidden;
+    }
+
+    .insta-main-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Actions */
+    .insta-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px 8px;
+    }
+
+    .insta-actions-left {
+      display: flex;
+      gap: 14px;
+    }
+
+    .action-btn {
+      background: none;
+      border: none;
+      color: var(--text-main);
+      font-size: 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s ease, color 0.15s ease;
+    }
+
+    .action-btn:hover {
+      transform: scale(1.15);
+      color: var(--gold);
+    }
+
+    /* Post Details */
+    .insta-details {
+      padding: 0 16px 16px;
+      text-align: left;
+    }
+
+    .insta-likes {
+      font-size: 0.85rem;
+      margin-bottom: 8px;
+    }
+
+    .role-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .headline {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .bio {
+      font-size: 0.88rem;
+      color: #cfd4dc;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .insta-bold-author {
+      font-weight: 700;
+      color: var(--text-main);
+      margin-right: 4px;
+    }
+
+    .insta-timestamp {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* Common Section */
+    .section {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px 16px;
+      text-align: left;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .section-title {
+      font-family: 'Grenze Gotisch', Georgia, serif;
+      font-size: 1.35rem;
+      color: var(--gold);
+      margin-bottom: 14px;
+      letter-spacing: 0.05em;
+    }
+
+    /* Skills Layout */
+    .skills-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .skill-group {
+      background-color: var(--card-inner);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 12px 14px;
+    }
+
+    .group-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+    }
+
+    .skill-group p {
+      font-size: 0.85rem;
+      color: #c4cad4;
+      line-height: 1.4;
+    }
+
+    /* Projects List */
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .project-item {
+      background-color: var(--card-inner);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 14px;
+    }
+
+    .project-meta {
+      display: flex;
+      gap: 8px;
+      font-size: 0.72rem;
+      margin-bottom: 6px;
+    }
+
+    .project-meta .year {
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .project-meta .tag {
+      color: var(--text-muted);
+    }
+
+    .project-content h3 {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      font-size: 0.68rem;
+      background-color: rgba(34, 197, 94, 0.15);
+      color: #22c55e;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: normal;
+    }
+
+    .project-content p {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      line-height: 1.45;
+    }
+
+    .tech-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tech-row span {
+      font-size: 0.72rem;
+      background-color: #12141a;
+      border: 1px solid var(--border-color);
+      color: #a1a7b5;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    /* Contact Section */
+    .contact-box p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .link-btn {
+      background-color: var(--card-inner);
+      border: 1px solid var(--border-color);
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .link-btn:hover {
+      background-color: var(--gold);
+      color: #000;
+    }
+
+    /* Footer */
+    footer {
+      width: 100%;
+      padding: 14px 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: var(--gold);
+    }
+  </style>
 </head>
 <body>
 
@@ -145,11 +581,58 @@
 
     <footer>
       <span>© 2026 akarui_uks</span>
-      <span> OMA BEDOR</span>
-      <a href="game.html">Arcade</a>
+      <span onclick="openVaultModal()" style="cursor: pointer;" title="Unlock Vault">OMA BEDOR</span>
+      <a href="arcade.html">Arcade</a>
     </footer>
   </div>
 
-  <script src="script.js"></script>
+  <!-- Vault Modal (PIN Only) -->
+  <div id="vaultModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(6px); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
+    <div style="background: #111317; border: 1px solid #d4af37; border-radius: 8px; padding: 24px; width: 100%; max-width: 300px; text-align: center; box-shadow: 0 0 25px rgba(212,175,55,0.25);">
+      <h3 style="color: #d4af37; font-family: 'Grenze Gotisch', Georgia, serif; font-size: 1.5rem; margin-bottom: 6px;">Vault Access</h3>
+      <p style="color: #8b929e; font-size: 0.8rem; margin-bottom: 16px;">Enter the passcode to proceed.</p>
+      
+      <input type="password" id="vaultPin" placeholder="••••" autocomplete="off" style="width: 100%; padding: 10px; background: #07080a; border: 1px solid #232730; color: #fff; text-align: center; border-radius: 4px; font-size: 1.2rem; letter-spacing: 4px; margin-bottom: 14px; outline: none;">
+
+      <div style="display: flex; gap: 8px;">
+        <button type="button" onclick="closeVaultModal()" style="flex: 1; padding: 10px; background: transparent; border: 1px solid #232730; color: #8b929e; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Cancel</button>
+        <button type="button" onclick="unlockBirthday()" style="flex: 1; padding: 10px; background: #d4af37; border: none; color: #000; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Enter</button>
+      </div>
+
+      <div id="vaultError" style="color: #ef4444; font-size: 0.8rem; margin-top: 10px; min-height: 16px;"></div>
+    </div>
+  </div>
+
+  <script>
+    const SECRET_PIN = "1098";
+
+    function openVaultModal() {
+      document.getElementById('vaultModal').style.display = 'flex';
+      document.getElementById('vaultPin').value = '';
+      document.getElementById('vaultError').textContent = '';
+      document.getElementById('vaultPin').focus();
+    }
+
+    function closeVaultModal() {
+      document.getElementById('vaultModal').style.display = 'none';
+    }
+
+    function unlockBirthday() {
+      const pin = document.getElementById('vaultPin').value.trim();
+      if (pin === SECRET_PIN) {
+        window.location.href = "birthday.html";
+      } else {
+        document.getElementById('vaultError').textContent = "Access Denied";
+      }
+    }
+
+    document.getElementById('vaultPin').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') unlockBirthday();
+    });
+
+    document.getElementById('vaultModal').addEventListener('click', function(e) {
+      if (e.target === this) closeVaultModal();
+    });
+  </script>
 </body>
 </html>
