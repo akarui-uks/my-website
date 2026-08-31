@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+  <meta charset="UTF-8">
+  <script>
+    // If not unlocked via the vault modal, redirect back home instantly
+    if (sessionStorage.getItem("vault_unlocked") !== "true") {
+      window.location.replace("index.html");
+    }
+  </script>
+  <meta name="robots" content="noindex, nofollow">
+  ...
+
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>akarui_uks — Portfolio</title>
@@ -617,14 +629,19 @@
       document.getElementById('vaultModal').style.display = 'none';
     }
 
+
     function unlockBirthday() {
-      const pin = document.getElementById('vaultPin').value.trim();
-      if (pin === SECRET_PIN) {
-        window.location.href = "birthday.html";
-      } else {
-        document.getElementById('vaultError').textContent = "Access Denied";
-      }
-    }
+  const pin = document.getElementById('vaultPin').value.trim();
+  if (pin === SECRET_PIN) {
+    // Set authorization token in the browser session
+    sessionStorage.setItem("vault_unlocked", "true");
+    window.location.href = "birthday.html";
+  } else {
+    document.getElementById('vaultError').textContent = "Access Denied";
+  }
+}
+
+
 
     document.getElementById('vaultPin').addEventListener('keydown', (e) => {
       if (e.key === 'Enter') unlockBirthday();
