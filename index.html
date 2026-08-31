@@ -1,18 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-  <meta charset="UTF-8">
-  <script>
-    // If not unlocked via the vault modal, redirect back home instantly
-    if (sessionStorage.getItem("vault_unlocked") !== "true") {
-      window.location.replace("index.html");
-    }
-  </script>
-  <meta name="robots" content="noindex, nofollow">
-  ...
-
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>akarui_uks — Portfolio</title>
@@ -59,7 +47,6 @@
       background-attachment: fixed;
     }
 
-    /* Wrapper */
     .wrapper {
       max-width: 520px;
       width: 100%;
@@ -69,7 +56,6 @@
       flex-direction: column;
     }
 
-    /* Top Navigation Header */
     .top-nav {
       width: 100%;
       padding: 14px 16px;
@@ -140,7 +126,6 @@
       font-size: 0.85rem;
     }
 
-    /* Main Container */
     main {
       flex: 1;
       padding: 18px 16px;
@@ -149,7 +134,6 @@
       gap: 20px;
     }
 
-    /* Instagram Post Card */
     .insta-card {
       background-color: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -158,7 +142,6 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
     }
 
-    /* Post Header */
     .insta-header {
       display: flex;
       align-items: center;
@@ -204,7 +187,6 @@
       cursor: pointer;
     }
 
-    /* Image Container */
     .insta-image-container {
       width: 100%;
       aspect-ratio: 1 / 1;
@@ -219,7 +201,6 @@
       display: block;
     }
 
-    /* Actions */
     .insta-actions {
       display: flex;
       justify-content: space-between;
@@ -249,7 +230,6 @@
       color: var(--gold);
     }
 
-    /* Post Details */
     .insta-details {
       padding: 0 16px 16px;
       text-align: left;
@@ -295,7 +275,6 @@
       letter-spacing: 0.05em;
     }
 
-    /* Common Section */
     .section {
       background-color: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -313,7 +292,6 @@
       letter-spacing: 0.05em;
     }
 
-    /* Skills Layout */
     .skills-layout {
       display: flex;
       flex-direction: column;
@@ -343,7 +321,6 @@
       line-height: 1.4;
     }
 
-    /* Projects List */
     .project-list {
       display: flex;
       flex-direction: column;
@@ -414,7 +391,6 @@
       border-radius: 4px;
     }
 
-    /* Contact Section */
     .contact-box p {
       font-size: 0.88rem;
       color: var(--text-muted);
@@ -444,7 +420,6 @@
       color: #000;
     }
 
-    /* Footer */
     footer {
       width: 100%;
       padding: 14px 16px 24px;
@@ -489,7 +464,7 @@
       <section id="about" class="insta-card">
         <div class="insta-header">
           <div class="insta-user-info">
-            <img src="avatar.png" alt="Avatar" class="insta-mini-avatar">
+            <img src="avatar.png" alt="Avatar" class="insta-mini-avatar" loading="lazy">
             <div class="insta-user-text">
               <span class="insta-username">akarui_uks</span>
               <span class="insta-location">Cathedral Vault • ECE</span>
@@ -499,7 +474,7 @@
         </div>
 
         <div class="insta-image-container">
-          <img src="avatar.png" alt="Profile Display" class="insta-main-img">
+          <img src="avatar.png" alt="Profile Display" class="insta-main-img" loading="eager">
         </div>
 
         <div class="insta-actions">
@@ -593,12 +568,12 @@
 
     <footer>
       <span>© 2026 akarui_uks</span>
-      <span onclick="openVaultModal()" style="cursor: pointer;" title="Unlock Vault">OMA BEDOR</span>
+      <span onclick="openVaultModal()" style="cursor: pointer; user-select: none;" title="Vault">OMA BEDOR</span>
       <a href="arcade.html">Arcade</a>
     </footer>
   </div>
 
-  <!-- Vault Modal (PIN Only) -->
+  <!-- PIN Only Vault Modal -->
   <div id="vaultModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(6px); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
     <div style="background: #111317; border: 1px solid #d4af37; border-radius: 8px; padding: 24px; width: 100%; max-width: 300px; text-align: center; box-shadow: 0 0 25px rgba(212,175,55,0.25);">
       <h3 style="color: #d4af37; font-family: 'Grenze Gotisch', Georgia, serif; font-size: 1.5rem; margin-bottom: 6px;">Vault Access</h3>
@@ -615,8 +590,9 @@
     </div>
   </div>
 
+  <script src="script.js"></script>
   <script>
-    const SECRET_PIN = "1098";
+    const SECRET_PIN = "7788";
 
     function openVaultModal() {
       document.getElementById('vaultModal').style.display = 'flex';
@@ -629,19 +605,16 @@
       document.getElementById('vaultModal').style.display = 'none';
     }
 
-
     function unlockBirthday() {
-  const pin = document.getElementById('vaultPin').value.trim();
-  if (pin === SECRET_PIN) {
-    // Set authorization token in the browser session
-    sessionStorage.setItem("vault_unlocked", "true");
-    window.location.href = "birthday.html";
-  } else {
-    document.getElementById('vaultError').textContent = "Access Denied";
-  }
-}
-
-
+      const pin = document.getElementById('vaultPin').value.trim();
+      if (pin === SECRET_PIN) {
+        // Set security token so only authorized visitors can view birthday.html
+        sessionStorage.setItem("vault_unlocked", "true");
+        window.location.href = "birthday.html";
+      } else {
+        document.getElementById('vaultError').textContent = "Access Denied";
+      }
+    }
 
     document.getElementById('vaultPin').addEventListener('keydown', (e) => {
       if (e.key === 'Enter') unlockBirthday();

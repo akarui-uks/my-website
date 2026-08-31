@@ -2,6 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <script>
+    // Kick unauthorized visitors back to home if they did not enter PIN
+    if (sessionStorage.getItem("vault_unlocked") !== "true") {
+      window.location.replace("index.html");
+    }
+  </script>
+  <meta name="robots" content="noindex, nofollow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday! 🎂✨</title>
 
@@ -143,7 +150,6 @@
       margin-bottom: 30px;
     }
 
-    /* 3 Big Picture Cards */
     .cards-grid {
       display: flex;
       flex-direction: column;
@@ -220,10 +226,9 @@
 
   <canvas id="confettiCanvas"></canvas>
 
-  <audio id="bdayAudio" loop preload="auto">
+  <!-- preload="none" stops the network connection from hanging and flickering -->
+  <audio id="bdayAudio" loop preload="none">
     <source src="music.mp3" type="audio/mpeg">
-    <source src="music.ogg" type="audio/ogg">
-    <source src="music.wav" type="audio/wav">
   </audio>
 
   <nav class="top-nav">
@@ -242,31 +247,28 @@
 
     <div class="cards-grid">
 
-      <!-- Photo 1: bday.jpg -->
       <article class="bday-card">
         <span class="card-badge">💛 Pure Sunshine</span>
         <div class="photo-container">
-          <img src="bday.jpg" alt="Memory 1">
+          <img src="bday.jpg" alt="Memory 1" loading="lazy">
         </div>
         <h2 class="card-heading">The Brightest Smile</h2>
         <p class="card-desc">Your positive energy and warmth always bring light to everyone around you. Keep shining! 🌟</p>
       </article>
 
-      <!-- Photo 2: her.jpg -->
       <article class="bday-card">
         <span class="card-badge" style="background: #e0f2fe; color: #0369a1; border-color: #bae6fd;">🚀 Unstoppable</span>
         <div class="photo-container">
-          <img src="her.jpg" alt="Memory 2">
+          <img src="her.jpg" alt="Memory 2" loading="lazy">
         </div>
         <h2 class="card-heading">Master of Big Goals</h2>
         <p class="card-desc">Never stopping, always leveling up with confidence, style, and grit. This year is yours! 🎯</p>
       </article>
 
-      <!-- Photo 3: she.jpg -->
       <article class="bday-card">
         <span class="card-badge" style="background: #fce7f3; color: #be185d; border-color: #fbcfe8;">🌸 Legendary Soul</span>
         <div class="photo-container">
-          <img src="she.jpg" alt="Memory 3">
+          <img src="she.jpg" alt="Memory 3" loading="lazy">
         </div>
         <h2 class="card-heading" id="heading3">Here's To You!</h2>
         <p class="card-desc">May this year be packed with awesome adventures, delicious food, and unforgettable memories! 🍰✨</p>
@@ -277,9 +279,9 @@
 
   <script>
     // ==========================================
-    // ⚙️ EDIT THE PERSON'S NAME HERE:
+    // ⚙️ EDIT RECIPIENT'S NAME HERE:
     // ==========================================
-    const PERSON_NAME = "Zambi Bani"; // Replace with the recipient's name
+    const PERSON_NAME = "Bestie";
 
     document.getElementById('celebrationTitle').textContent = `Happy Birthday, ${PERSON_NAME}! 🎉`;
     document.title = `Happy Birthday ${PERSON_NAME}! 🎂✨`;
