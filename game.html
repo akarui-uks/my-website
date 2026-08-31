@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Cathedral Arena — Arcade</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@600;800&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    body {
+      background-color: #0b0c0e;
+      color: #ede8df;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 480px;
+      padding: 12px 16px;
+      border-bottom: 1px solid #232730;
+      margin-bottom: 10px;
+    }
+
+    .back-btn {
+      color: #d4af37;
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: opacity 0.2s;
+    }
+
+    .back-btn:hover {
+      opacity: 0.7;
+    }
+
+    .title {
+      font-family: 'Grenze Gotisch', Georgia, serif;
+      font-size: 1.4rem;
+      color: #d4af37;
+      letter-spacing: 0.05em;
+    }
+
+    .stats {
+      font-size: 0.85rem;
+      color: #8b929e;
+      font-family: monospace;
+    }
+
+    #gameCanvas {
+      background: radial-gradient(circle at 50% 50%, #161922 0%, #08090b 100%);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 6px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.1);
+      display: block;
+      touch-action: none;
+    }
+
+    .controls-hint {
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: #555b66;
+      letter-spacing: 0.05em;
+      text-align: center;
+    }
+
+    .mobile-controls {
+      display: none;
+      gap: 12px;
+      margin-top: 10px;
+      width: 100%;
+      max-width: 480px;
+      padding: 0 16px;
+    }
+
+    .ctrl-btn {
+      flex: 1;
+      background: #111317;
+      border: 1px solid #232730;
+      color: #d4af37;
+      font-size: 1.2rem;
+      padding: 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .mobile-controls {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="index.html" class="back-btn">← Sanctuary</a>
+    <span class="title">Arena Void</span>
+    <span class="stats" id="statsDisplay">SCORE: 0</span>
+  </div>
+
+  <canvas id="gameCanvas" width="450" height="600"></canvas>
+
+  <div class="controls-hint">
+    [A / D] or [← / →] to Move &bull; [SPACE] or Click to Fire
+  </div>
+
+  <div class="mobile-controls">
+    <button class="ctrl-btn" id="btnLeft">◀</button>
+    <button class="ctrl-btn" id="btnFire">♰ FIRE</button>
+    <button class="ctrl-btn" id="btnRight">▶</button>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const statsDisplay = document.getElementById('statsDisplay');
+
+    // Resize canvas dynamically for mobile screens
+    function fitCanvas() {
+      const maxWidth = Math.min(window.innerWidth - 30, 450);
+      const scale = maxWidth / 450;
+      canvas.style.width = maxWidth + 'px';
+      canvas.style.height = (600 * scale) + 'px';
+    }
+    window.addEventListener('resize', fitCanvas);
+    fitCanvas();
+
+    // Game state
+    let state = 'start'; // 'start', 'playing', 'gameover'
+    let score = 0;
+    let highScore = localStorage.getItem('arena_highscore') || 0;
+    let lives = 3;
+    let frame = 0;
+
+    // Keys
+    const keys = {};
+    window.addEventListener('keydown', e => {
+      keys[e.code] = true;
+      if (e.code === 'Space') {
+        e.preventDefault();
+        if (state === 'start' || state === 'gameover') startGame();
+        else fireBullet();
+      }
+    });
+    window.addEventListener('keyup', e => keys[e.code] = false);
+
+    // Canvas click to start or shoot
+    canvas.addEventListener('pointerdown', (e) => {
+      if (state === 'start' || state === 'gameover') {
+        startGame();
+      } else {
+        fireBullet();
+      }
+    });
+
+    // Mobile buttons
+    const btnLeft = document.getElementById('btnLeft');
+    const btnRight = document.getElementById('btnRight');
+    const btnFire = document.getElementById('btnFire');
+
+    btnLeft.addEventListener('pointerdown', () => keys['ArrowLeft'] = true);
+    btnLeft.addEventListener('pointerup', () => keys['ArrowLeft'] = false);
+    btnRight.addEventListener('pointerdown', () => keys['ArrowRight'] = true);
+    btnRight.addEventListener('pointerup', () => keys['ArrowRight'] = false);
+    btnFire.addEventListener('pointerdown', () => {
+      if (state === 'start' || state === 'gameover') startGame();
+      else fireBullet();
+    });
+
+    // Entities
+    const player = {
+      x: canvas.width / 2,
+      y: canvas.height - 50,
+      width: 32,
+      height: 32,
+      speed: 6,
+      cooldown: 0
+    };
+
+    let bullets = [];
+    let enemies = [];
+    let particles = [];
+
+    function startGame() {
+      state = 'playing';
+      score = 0;
+      lives = 3;
+      bullets = [];
+      enemies = [];
+      particles = [];
+      player.x = canvas.width / 2;
+    }
+
+    function fireBullet() {
+      if (player.cooldown <= 0) {
+        bullets.push({
+          x: player.x,
+          y: player.y - 18,
+          radius: 3,
+          speed: 9
+        });
+        player.cooldown = 12;
+      }
+    }
+
+    function spawnParticle(x, y, color) {
+      for (let i = 0; i < 8; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 3 + 1;
+        particles.push({
+          x, y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          life: 20,
+          color: color || '#d4af37'
+        });
+      }
+    }
+
+    // Main Game Loop
+    function loop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (state === 'playing') {
+        frame++;
+
+        // Player Movement
+        if ((keys['ArrowLeft'] || keys['KeyA']) && player.x > player.width / 2) {
+          player.x -= player.speed;
+        }
+        if ((keys['ArrowRight'] || keys['KeyD']) && player.x < canvas.width - player.width / 2) {
+          player.x += player.speed;
+        }
+        if (player.cooldown > 0) player.cooldown--;
+
+        // Spawn Rogue Shards
+        const spawnInterval = Math.max(25, 60 - Math.floor(score / 50));
+        if (frame % spawnInterval === 0) {
+          enemies.push({
+            x: Math.random() * (canvas.width - 40) + 20,
+            y: -20,
+            size: Math.random() * 14 + 16,
+            speed: Math.random() * 2 + 2 + (score / 150),
+            rot: 0,
+            rotSpeed: (Math.random() - 0.5) * 0.1
+          });
+        }
+
+        // Update Bullets
+        bullets.forEach((b, bi) => {
+          b.y -= b.speed;
+          if (b.y < -10) bullets.splice(bi, 1);
+        });
+
+        // Update Enemies
+        enemies.forEach((e, ei) => {
+          e.y += e.speed;
+          e.rot += e.rotSpeed;
+
+          // Bullet Collision
+          bullets.forEach((b, bi) => {
+            const dist = Math.hypot(e.x - b.x, e.y - b.y);
+            if (dist < e.size + b.radius) {
+              spawnParticle(e.x, e.y, '#d4af37');
+              enemies.splice(ei, 1);
+              bullets.splice(bi, 1);
+              score += 10;
+              if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('arena_highscore', highScore);
+              }
+            }
+          });
+
+          // Player Collision
+          const pDist = Math.hypot(e.x - player.x, e.y - player.y);
+          if (pDist < e.size + 14) {
+            spawnParticle(player.x, player.y, '#ef4444');
+            enemies.splice(ei, 1);
+            lives--;
+            if (lives <= 0) {
+              state = 'gameover';
+            }
+          }
+
+          if (e.y > canvas.height + 30) {
+            enemies.splice(ei, 1);
+          }
+        });
+
+        // Update Particles
+        particles.forEach((p, pi) => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.life--;
+          if (p.life <= 0) particles.splice(pi, 1);
+        });
+
+        statsDisplay.textContent = `SCORE: ${score} | LIVES: ${lives}`;
+      }
+
+      // Draw Particles
+      particles.forEach(p => {
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.life / 6, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // Draw Bullets (Gold Crossbeams)
+      ctx.fillStyle = '#d4af37';
+      ctx.shadowColor = '#d4af37';
+      ctx.shadowBlur = 10;
+      bullets.forEach(b => {
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.shadowBlur = 0;
+
+      // Draw Enemies (Obsidian Runes)
+      enemies.forEach(e => {
+        ctx.save();
+        ctx.translate(e.x, e.y);
+        ctx.rotate(e.rot);
+        ctx.strokeStyle = '#8b929e';
+        ctx.lineWidth = 2;
+        ctx.fillStyle = '#171a20';
+        ctx.beginPath();
+        ctx.moveTo(0, -e.size);
+        ctx.lineTo(e.size, 0);
+        ctx.lineTo(0, e.size);
+        ctx.lineTo(-e.size, 0);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+      });
+
+      // Draw Player Ship (Gothic Arrowhead)
+      if (state === 'playing') {
+        ctx.save();
+        ctx.translate(player.x, player.y);
+        ctx.fillStyle = '#ffffff';
+        ctx.strokeStyle = '#d4af37';
+        ctx.lineWidth = 2;
+        ctx.shadowColor = 'rgba(212, 175, 55, 0.4)';
+        ctx.shadowBlur = 12;
+        
+        ctx.beginPath();
+        ctx.moveTo(0, -18);
+        ctx.lineTo(14, 14);
+        ctx.lineTo(0, 8);
+        ctx.lineTo(-14, 14);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // Screens (Start / Game Over)
+      if (state === 'start') {
+        ctx.fillStyle = 'rgba(11, 12, 14, 0.85)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#d4af37';
+        ctx.font = '36px "Grenze Gotisch", serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('ENTER THE VOID', canvas.width / 2, canvas.height / 2 - 20);
+        ctx.font = '14px monospace';
+        ctx.fillStyle = '#8b929e';
+        ctx.fillText('PRESS SPACE OR CLICK TO AWAKEN', canvas.width / 2, canvas.height / 2 + 25);
+        ctx.fillText(`BEST RUN: ${highScore}`, canvas.width / 2, canvas.height / 2 + 60);
+      } else if (state === 'gameover') {
+        ctx.fillStyle = 'rgba(11, 12, 14, 0.85)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#ef4444';
+        ctx.font = '36px "Grenze Gotisch", serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('VESSEL DESTROYED', canvas.width / 2, canvas.height / 2 - 30);
+        ctx.font = '16px monospace';
+        ctx.fillStyle = '#d4af37';
+        ctx.fillText(`FINAL SCORE: ${score}`, canvas.width / 2, canvas.height / 2 + 10);
+        ctx.fillStyle = '#8b929e';
+        ctx.font = '13px monospace';
+        ctx.fillText('PRESS SPACE OR CLICK TO RETRY', canvas.width / 2, canvas.height / 2 + 50);
+      }
+
+      requestAnimationFrame(loop);
+    }
+
+    loop();
+  </script>
+</body>
+</html>
