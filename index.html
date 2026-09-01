@@ -233,13 +233,15 @@
 
   <div class="container">
 
-    <!-- Polaroid Picture -->
-    <div class="polaroid-wrapper">
-      <div class="polaroid">
-        <img src="avatar.png" alt="Ujjwal">
-        <div class="polaroid-caption">hi, my name is ujjwal</div>
-      </div>
-    </div>
+    <script src="avatar-data.js"></script>
+
+<!-- In Polaroid markup -->
+<div class="polaroid-wrapper">
+  <div class="polaroid">
+    <img id="polaroidAvatar" alt="Ujjwal">
+    <div class="polaroid-caption">hi, my name is ujjwal</div>
+  </div>
+</div>
 
     <!-- Description -->
     <div class="intro-text">
@@ -360,5 +362,13 @@
       if (e.target === this) closeVaultModal();
     });
   </script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const img = document.getElementById('polaroidAvatar');
+    if (img && typeof AVATAR_DATA !== 'undefined') {
+      img.src = AVATAR_DATA;
+    }
+  });
+</script>
 </body>
 </html>
