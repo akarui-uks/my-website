@@ -3,30 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>akarui_uks — Portfolio</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>♰</text></svg>">
-  
+  <title>Ujjwal — Portfolio</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@600;800;900&display=swap" rel="stylesheet">
-
-  <meta property="og:title" content="akarui_uks — Portfolio">
-  <meta property="og:description" content="Engineering projects, low-level programming, and hardware systems.">
-  <meta property="og:image" content="https://omabedor.space/avatar.png">
-  <meta property="og:url" content="https://omabedor.space">
-  <meta name="twitter:card" content="summary_large_image">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg-color: #0b0c0e;
-      --card-bg: #111317;
-      --card-inner: #07080a;
-      --border-color: #232730;
-      --text-main: #ede8df;
+      --bg: #0f1115;
+      --card-bg: #16181d;
+      --border: #22262f;
+      --text: #e2e4e9;
       --text-muted: #8b929e;
-      --gold: #d4af37;
-      --gold-glow: rgba(212, 175, 55, 0.15);
-      --crimson: #ef4444;
+      --accent: #d4af37;
     }
 
     * {
@@ -36,561 +26,308 @@
     }
 
     body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
       line-height: 1.6;
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      background-image: radial-gradient(circle at 50% 15%, rgba(212, 175, 55, 0.04), transparent 60%);
-      background-attachment: fixed;
+      justify-content: center;
+      padding: 40px 20px 60px;
     }
 
-    .wrapper {
+    .container {
       max-width: 520px;
       width: 100%;
-      margin: 0 auto;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
+      gap: 36px;
     }
 
-    .top-nav {
-      width: 100%;
-      padding: 14px 16px;
+    /* Polaroid Card */
+    .polaroid-wrapper {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--border-color);
-      background-color: rgba(11, 12, 14, 0.95);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 50;
+      justify-content: center;
+      margin-top: 10px;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      background-color: #22c55e;
-      border-radius: 50%;
-      display: inline-block;
-      box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
-    }
-
-    .brand-text {
-      font-family: 'Grenze Gotisch', Georgia, serif;
-      font-size: 1.35rem;
-      color: var(--gold);
-      letter-spacing: 0.05em;
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    nav {
-      display: flex;
-      gap: 12px;
-    }
-
-    nav a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      transition: color 0.2s ease;
-    }
-
-    nav a:hover {
-      color: var(--gold);
-    }
-
-    #theme-toggle {
-      background: none;
-      border: 1px solid var(--border-color);
-      color: var(--gold);
-      padding: 3px 8px;
+    .polaroid {
+      background: #ffffff;
+      padding: 12px 12px 18px;
       border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.85rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      width: 100%;
+      max-width: 320px;
+      text-align: center;
+      transform: rotate(-1.5deg);
+      transition: transform 0.25s ease;
     }
 
-    main {
-      flex: 1;
-      padding: 18px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+    .polaroid:hover {
+      transform: rotate(0deg) scale(1.02);
     }
 
-    .insta-card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-    }
-
-    .insta-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .insta-user-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .insta-mini-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: 1px solid var(--gold);
-      object-fit: cover;
-    }
-
-    .insta-user-text {
-      display: flex;
-      flex-direction: column;
-      text-align: left;
-    }
-
-    .insta-username {
-      font-weight: 600;
-      font-size: 0.88rem;
-      color: var(--text-main);
-    }
-
-    .insta-location {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-
-    .insta-more {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-      cursor: pointer;
-    }
-
-    .insta-image-container {
+    .polaroid img {
       width: 100%;
       aspect-ratio: 1 / 1;
-      background-color: #060708;
-      overflow: hidden;
-    }
-
-    .insta-main-img {
-      width: 100%;
-      height: 100%;
       object-fit: cover;
       display: block;
+      border-radius: 2px;
+      background: #eee;
     }
 
-    .insta-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 16px 8px;
+    .polaroid-caption {
+      font-family: 'Caveat', cursive;
+      font-size: 1.55rem;
+      color: #1a1a1a;
+      margin-top: 12px;
+      line-height: 1.2;
     }
 
-    .insta-actions-left {
-      display: flex;
-      gap: 14px;
-    }
-
-    .action-btn {
-      background: none;
-      border: none;
-      color: var(--text-main);
-      font-size: 1.25rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.15s ease, color 0.15s ease;
-    }
-
-    .action-btn:hover {
-      transform: scale(1.15);
-      color: var(--gold);
-    }
-
-    .insta-details {
-      padding: 0 16px 16px;
-      text-align: left;
-    }
-
-    .insta-likes {
-      font-size: 0.85rem;
-      margin-bottom: 8px;
-    }
-
-    .role-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--gold);
-      margin-bottom: 4px;
-    }
-
-    .headline {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 8px;
-      line-height: 1.4;
-    }
-
-    .bio {
-      font-size: 0.88rem;
-      color: #cfd4dc;
-      margin-bottom: 8px;
-      line-height: 1.5;
-    }
-
-    .insta-bold-author {
-      font-weight: 700;
-      color: var(--text-main);
-      margin-right: 4px;
-    }
-
-    .insta-timestamp {
-      font-size: 0.68rem;
+    /* Bio Section */
+    .intro-text {
+      font-size: 0.95rem;
       color: var(--text-muted);
-      letter-spacing: 0.05em;
+      line-height: 1.7;
     }
 
+    .intro-text strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* Sections */
     .section {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 20px 16px;
-      text-align: left;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
     .section-title {
-      font-family: 'Grenze Gotisch', Georgia, serif;
-      font-size: 1.35rem;
-      color: var(--gold);
-      margin-bottom: 14px;
-      letter-spacing: 0.05em;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
     }
 
-    .skills-layout {
+    /* Simple Lists */
+    .item-list {
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
 
-    .skill-group {
-      background-color: var(--card-inner);
-      border: 1px solid var(--border-color);
+    .item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
       border-radius: 6px;
-      padding: 12px 14px;
+      padding: 14px 16px;
     }
 
-    .group-label {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
       margin-bottom: 4px;
     }
 
-    .skill-group p {
-      font-size: 0.85rem;
-      color: #c4cad4;
-      line-height: 1.4;
+    .item-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
     }
 
-    .project-list {
+    .item-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .item-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Other Pages / Links */
+    .links-grid {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-    }
-
-    .project-item {
-      background-color: var(--card-inner);
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      padding: 14px;
-    }
-
-    .project-meta {
-      display: flex;
-      gap: 8px;
-      font-size: 0.72rem;
-      margin-bottom: 6px;
-    }
-
-    .project-meta .year {
-      color: var(--gold);
-      font-weight: 700;
-    }
-
-    .project-meta .tag {
-      color: var(--text-muted);
-    }
-
-    .project-content h3 {
-      font-size: 0.95rem;
-      color: var(--text-main);
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .badge {
-      font-size: 0.68rem;
-      background-color: rgba(34, 197, 94, 0.15);
-      color: #22c55e;
-      border: 1px solid rgba(34, 197, 94, 0.3);
-      padding: 1px 6px;
-      border-radius: 4px;
-      font-weight: normal;
-    }
-
-    .project-content p {
-      font-size: 0.83rem;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-      line-height: 1.45;
-    }
-
-    .tech-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .tech-row span {
-      font-size: 0.72rem;
-      background-color: #12141a;
-      border: 1px solid var(--border-color);
-      color: #a1a7b5;
-      padding: 3px 8px;
-      border-radius: 4px;
-    }
-
-    .contact-box p {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      margin-bottom: 14px;
-    }
-
-    .contact-links {
-      display: flex;
       gap: 10px;
-      flex-wrap: wrap;
     }
 
-    .link-btn {
-      background-color: var(--card-inner);
-      border: 1px solid var(--border-color);
-      color: var(--gold);
+    .nav-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 16px;
       text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 8px 16px;
-      border-radius: 4px;
+      color: var(--text);
       transition: all 0.2s ease;
     }
 
-    .link-btn:hover {
-      background-color: var(--gold);
-      color: #000;
+    .nav-card:hover {
+      border-color: var(--accent);
+      transform: translateX(4px);
     }
 
+    .nav-card-info h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .nav-card-info p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .nav-arrow {
+      color: var(--accent);
+      font-size: 1rem;
+    }
+
+    /* Contact Links */
+    .contact-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--text);
+      color: var(--text);
+    }
+
+    /* Footer */
     footer {
-      width: 100%;
-      padding: 14px 16px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-size: 0.75rem;
       color: var(--text-muted);
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
     }
 
-    footer a {
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    footer a:hover {
-      color: var(--gold);
+    footer span {
+      user-select: none;
     }
   </style>
 </head>
 <body>
 
-  <div class="wrapper">
-    <header class="top-nav">
-      <div class="brand">
-        <span class="status-dot"></span>
-        <span class="brand-text">akarui_uks</span>
+  <div class="container">
+
+    <!-- Polaroid Picture -->
+    <div class="polaroid-wrapper">
+      <div class="polaroid">
+        <img src="avatar.png" alt="Ujjwal">
+        <div class="polaroid-caption">hi, my name is ujjwal</div>
       </div>
-      <div class="nav-right">
-        <nav>
-          <a href="#about">About</a>
-          <a href="#skills">Skills</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
-        </nav>
-        <button id="theme-toggle" aria-label="Toggle theme">♰</button>
+    </div>
+
+    <!-- Description -->
+    <div class="intro-text">
+      <p>
+        Undergraduate studying <strong>Electronics & Communication Engineering</strong>. 
+        Interested in embedded systems, low-level C programming, and robotics hardware.
+      </p>
+    </div>
+
+    <!-- Projects -->
+    <section class="section">
+      <h2 class="section-title">Projects</h2>
+      <div class="item-list">
+        <div class="item">
+          <div class="item-header">
+            <span class="item-name">Robo-Hockey Bot</span>
+            <span class="item-meta">Embedded / Hardware</span>
+          </div>
+          <p class="item-desc">Custom chassis robotics bot with RF transceiver controls and high-torque motor drivers.</p>
+        </div>
+
+        <div class="item">
+          <div class="item-header">
+            <span class="item-name">Personal Portfolio & Vault</span>
+            <span class="item-meta">Web</span>
+          </div>
+          <p class="item-desc">Lightweight personal portfolio and passcode-protected static site build.</p>
+        </div>
       </div>
-    </header>
+    </section>
 
-    <main>
-      <section id="about" class="insta-card">
-        <div class="insta-header">
-          <div class="insta-user-info">
-            <img src="avatar.png" alt="Avatar" class="insta-mini-avatar" loading="lazy">
-            <div class="insta-user-text">
-              <span class="insta-username">akarui_uks</span>
-              <span class="insta-location">Cathedral Vault • ECE</span>
+    <!-- Other Pages Section -->
+    <section class="section">
+        <h2 class="section-title">Other Pages</h2>
+        <div class="links-grid">
+          <a href="tune/index.html" class="nav-card">
+            <div class="nav-card-info">
+              <h4>TUNE</h4>
+              <p>Dedicated music player and original audio tracks</p>
             </div>
-          </div>
-          <span class="insta-more">•••</span>
-        </div>
+            <span class="nav-arrow">↗</span>
+          </a>
 
-        <div class="insta-image-container">
-          <img src="avatar.png" alt="Profile Display" class="insta-main-img" loading="eager">
-        </div>
-
-        <div class="insta-actions">
-          <div class="insta-actions-left">
-            <button class="action-btn" id="like-btn" title="Like">♥</button>
-            <button class="action-btn" title="Share">↗</button>
-          </div>
-          <button class="action-btn" title="Bookmark">⚲</button>
-        </div>
-
-        <div class="insta-details">
-          <div class="insta-likes">Liked by <strong id="like-count">1,248</strong> others</div>
-          <p class="role-label">Electronics & Communication Engineering</p>
-          <h1 class="headline">Building systems, learning low-level code, and exploring hardware.</h1>
-          <p class="bio">
-            <span class="insta-bold-author">akarui_uks</span> 2nd-year undergraduate interested in C/C++ fundamentals, robotics competitions, and embedded electronics.
-          </p>
-          <span class="insta-timestamp">JUST NOW</span>
+          <a href="arcade.html" class="nav-card">
+            <div class="nav-card-info">
+              <h4>Arcade</h4>
+              <p>Mini-games and experiments</p>
+            </div>
+            <span class="nav-arrow">↗</span>
+          </a>
         </div>
       </section>
 
-      <section id="skills" class="section">
-        <h2 class="section-title">Disciplines & Skills</h2>
-        <div class="skills-layout">
-          <div class="skill-group">
-            <span class="group-label">Languages</span>
-            <p>C, C++, HTML5, CSS3, JavaScript</p>
-          </div>
-          <div class="skill-group">
-            <span class="group-label">Hardware & Tools</span>
-            <p>Git, GitHub Pages, VS Code, Digital Logic, Circuit Simulation</p>
-          </div>
-          <div class="skill-group">
-            <span class="group-label">Core Interests</span>
-            <p>Embedded Systems, Low-Level Programming, Systems Architecture</p>
-          </div>
-        </div>
-      </section>
+    <!-- Contact -->
+    <section class="section">
+      <h2 class="section-title">Contact</h2>
+      <div class="contact-row">
+        <a href="mailto:akarui@myyahoo.com" class="contact-link">Email</a>
+        <a href="https://github.com/akarui-uks" target="_blank" rel="noopener noreferrer" class="contact-link">GitHub</a>
+        <a href="https://instagram.com/lazy.xiaowu" target="_blank" rel="noopener noreferrer" class="contact-link">Instagram</a>
+      </div>
+    </section>
 
-      <section id="projects" class="section">
-        <h2 class="section-title">Selected Works</h2>
-        <div class="project-list">
-          
-          <article class="project-item">
-            <div class="project-meta">
-              <span class="year">2026</span>
-              <span class="tag">Hardware / Robotics</span>
-            </div>
-            <div class="project-content">
-              <h3>Robo-Hockey Bot <span class="badge">Active</span></h3>
-              <p>Custom competitive robotics platform designed for speed, agility, and wireless control in arena hockey matches.</p>
-              <div class="tech-row">
-                <span>Embedded C</span>
-                <span>Motor Drivers</span>
-                <span>RF Transceiver</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-item">
-            <div class="project-meta">
-              <span class="year">2026</span>
-              <span class="tag">Web</span>
-            </div>
-            <div class="project-content">
-              <h3>Personal Website</h3>
-              <p>Personal portfolio and project showcase built with HTML and CSS.</p>
-              <div class="tech-row">
-                <span>HTML</span>
-                <span>CSS</span>
-                <span>JavaScript</span>
-              </div>
-            </div>
-          </article>
-
-        </div>
-      </section>
-
-      <section id="contact" class="section">
-        <h2 class="section-title">Inquiries</h2>
-        <div class="contact-box">
-          <p>Open for discussions regarding engineering projects, collaboration, or development.</p>
-          <div class="contact-links">
-            <a href="mailto:akarui@myyahoo.com" class="link-btn">Email Me</a>
-            <a href="https://github.com/akarui-uks" target="_blank" rel="noopener noreferrer" class="link-btn">GitHub</a>
-            <a href="https://instagram.com/lazy.xiaowu" target="_blank" rel="noopener noreferrer" class="link-btn">Instagram</a>
-          </div>
-        </div>
-      </section>
-    </main>
-
+    <!-- Footer -->
     <footer>
-      <span>© 2026 akarui_uks</span>
-      <span onclick="openVaultModal()" style="cursor: pointer; user-select: none;" title="Vault">OMA BEDOR</span>
-      <a href="arcade.html">Arcade</a>
+      <span>© 2026</span>
+      <span onclick="openVaultModal()" style="cursor: pointer;" title="Vault">OMA BEDOR</span>
     </footer>
+
   </div>
 
-  <!-- PIN Only Vault Modal -->
-  <div id="vaultModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(6px); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
-    <div style="background: #111317; border: 1px solid #d4af37; border-radius: 8px; padding: 24px; width: 100%; max-width: 300px; text-align: center; box-shadow: 0 0 25px rgba(212,175,55,0.25);">
-      <h3 style="color: #d4af37; font-family: 'Grenze Gotisch', Georgia, serif; font-size: 1.5rem; margin-bottom: 6px;">Vault Access</h3>
-      <p style="color: #8b929e; font-size: 0.8rem; margin-bottom: 16px;">Enter the passcode to proceed.</p>
+  <!-- Vault Modal -->
+  <div id="vaultModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
+    <div style="background: #16181d; border: 1px solid #22262f; border-radius: 6px; padding: 22px; width: 100%; max-width: 280px; text-align: center;">
+      <p style="color: #e2e4e9; font-size: 0.9rem; font-weight: 600; margin-bottom: 4px;">Vault Passcode</p>
+      <p style="color: #8b929e; font-size: 0.75rem; margin-bottom: 14px;">Enter PIN to continue</p>
       
-      <input type="password" id="vaultPin" placeholder="••••" autocomplete="off" style="width: 100%; padding: 10px; background: #07080a; border: 1px solid #232730; color: #fff; text-align: center; border-radius: 4px; font-size: 1.2rem; letter-spacing: 4px; margin-bottom: 14px; outline: none;">
+      <input type="password" id="vaultPin" placeholder="••••" autocomplete="off" style="width: 100%; padding: 8px; background: #0f1115; border: 1px solid #22262f; color: #fff; text-align: center; border-radius: 4px; font-size: 1.1rem; letter-spacing: 4px; margin-bottom: 12px; outline: none;">
 
       <div style="display: flex; gap: 8px;">
-        <button type="button" onclick="closeVaultModal()" style="flex: 1; padding: 10px; background: transparent; border: 1px solid #232730; color: #8b929e; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Cancel</button>
-        <button type="button" onclick="unlockBirthday()" style="flex: 1; padding: 10px; background: #d4af37; border: none; color: #000; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Enter</button>
+        <button type="button" onclick="closeVaultModal()" style="flex: 1; padding: 8px; background: transparent; border: 1px solid #22262f; color: #8b929e; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Cancel</button>
+        <button type="button" onclick="unlockBirthday()" style="flex: 1; padding: 8px; background: #d4af37; border: none; color: #000; font-weight: 600; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Enter</button>
       </div>
 
-      <div id="vaultError" style="color: #ef4444; font-size: 0.8rem; margin-top: 10px; min-height: 16px;"></div>
+      <div id="vaultError" style="color: #ef4444; font-size: 0.75rem; margin-top: 8px; min-height: 14px;"></div>
     </div>
   </div>
 
-  <script src="script.js"></script>
   <script>
     const SECRET_PIN = "7788";
 
@@ -608,11 +345,10 @@
     function unlockBirthday() {
       const pin = document.getElementById('vaultPin').value.trim();
       if (pin === SECRET_PIN) {
-        // Set security token so only authorized visitors can view birthday.html
         sessionStorage.setItem("vault_unlocked", "true");
         window.location.href = "birthday.html";
       } else {
-        document.getElementById('vaultError').textContent = "Access Denied";
+        document.getElementById('vaultError').textContent = "Incorrect code";
       }
     }
 
