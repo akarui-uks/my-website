@@ -2,22 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎵</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Omabedor | Engineering & Systems</title>
+  <title>Ujjwal Kr Swargiary</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #090d16;
-      --card-bg: #111827;
-      --border: #1f293d;
-      --accent: #38bdf8;
-      --accent-dim: rgba(56, 189, 248, 0.12);
-      --text: #f1f5f9;
-      --text-muted: #94a3b8;
+      --bg: #09090b;
+      --card-bg: #121215;
+      --card-border: #1f1f24;
+      --accent-red: #e11d48;
+      --accent-glow: rgba(225, 29, 72, 0.25);
+      --text: #f4f4f5;
+      --text-muted: #71717a;
       --font-main: 'Plus Jakarta Sans', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
@@ -31,239 +31,222 @@
     body {
       font-family: var(--font-main);
       background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 50% 15%, rgba(225, 29, 72, 0.12), transparent 45%),
+        radial-gradient(#18181b 1px, transparent 1px);
+      background-size: 100% 100%, 24px 24px;
       color: var(--text);
-      line-height: 1.6;
-      padding: 0 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 20px;
     }
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 60px 0;
+    .main-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 48px 36px;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8), 0 0 50px -15px var(--accent-glow);
+      position: relative;
     }
 
-    header {
-      margin-bottom: 50px;
+    /* Profile Image with subtle crimson border glow */
+    .avatar-wrapper {
+      width: 124px;
+      height: 124px;
+      margin: 0 auto 24px;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, var(--accent-red), #27272a);
+      box-shadow: 0 0 24px var(--accent-glow);
     }
 
-    .badge {
-      display: inline-block;
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--accent);
-      background: var(--accent-dim);
-      padding: 4px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      margin-bottom: 16px;
+    .avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      background: #18181b;
     }
 
     h1 {
-      font-size: 2.8rem;
+      font-size: 1.85rem;
       font-weight: 800;
       letter-spacing: -0.02em;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    /* Oma Bedor Vault link */
+    .vault-link {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent-red);
+      text-decoration: none;
+      background: rgba(225, 29, 72, 0.08);
+      border: 1px solid rgba(225, 29, 72, 0.25);
+      padding: 4px 14px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+      transition: all 0.2s ease;
+    }
+
+    .vault-link:hover {
+      background: var(--accent-red);
+      color: #ffffff;
+      box-shadow: 0 0 16px var(--accent-glow);
+      transform: translateY(-1px);
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--card-border), transparent);
+      margin: 0 0 24px;
+    }
+
+    /* Social Contact Icons */
+    .social-row {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .social-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: #18181b;
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .social-btn:hover {
+      color: var(--accent-red);
+      border-color: rgba(225, 29, 72, 0.5);
+      background: #201216;
+      transform: translateY(-2px);
+    }
+
+    .social-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    /* Section Tag */
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
       margin-bottom: 12px;
     }
 
-    p.lead {
-      font-size: 1.15rem;
-      color: var(--text-muted);
-      max-width: 650px;
-    }
-
-    .links-bar {
-      display: flex;
+    /* Useful Links: Arcade & Tune */
+    .links-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 12px;
-      margin-top: 24px;
-      flex-wrap: wrap;
     }
 
-    .btn-link {
-      display: inline-flex;
+    .useful-btn {
+      display: flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
+      padding: 12px;
+      border-radius: 12px;
+      background: #18181b;
+      border: 1px solid var(--card-border);
       color: var(--text);
       text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 8px;
       font-size: 0.9rem;
       font-weight: 600;
       transition: all 0.2s ease;
     }
 
-    .btn-link:hover {
-      border-color: var(--accent);
+    .useful-btn:hover {
+      border-color: var(--accent-red);
+      background: #1f1418;
       transform: translateY(-2px);
+      color: #ffffff;
     }
 
-    .btn-primary {
-      background: var(--accent);
-      color: #090d16;
-      border-color: var(--accent);
-    }
-
-    .btn-primary:hover {
-      background: #7dd3fc;
-      color: #090d16;
-    }
-
-    .section-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin: 48px 0 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .section-title::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      padding: 24px;
-      border-radius: 12px;
-      transition: border-color 0.2s ease;
-    }
-
-    .card:hover {
-      border-color: rgba(56, 189, 248, 0.4);
-    }
-
-    .card h3 {
-      font-size: 1.15rem;
-      margin-bottom: 8px;
-      color: #fff;
-    }
-
-    .card p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      line-height: 1.5;
-    }
-
-    .tag-list {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-top: 14px;
-    }
-
-    .tag {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--accent);
-      padding: 2px 8px;
-      border-radius: 4px;
-    }
-
-    footer {
-      margin-top: 80px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    footer a {
-      color: var(--text-muted);
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      color: var(--accent);
+    .useful-btn span {
+      font-size: 1.1rem;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-
-    <header>
-      <div class="badge">B.Tech ECE • Systems & Hardware</div>
-      <h1>Omabedor</h1>
-      <p class="lead">Undergraduate focused on digital logic design, embedded systems, networking infrastructure, and web applications.</p>
-      
-      <div class="links-bar">
-        <!-- GitHub Link -->
-        <a href="https://github.com/akarui-uks" target="_blank" rel="noopener noreferrer" class="btn-link">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-          GitHub
-        </a>
-
-        <!-- LinkedIn Link -->
-        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="btn-link">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-          LinkedIn
-        </a>
-
-        <!-- Subdomain link -->
-        <a href="https://esha.omabedor.space" target="_blank" rel="noopener noreferrer" class="btn-link btn-primary">
-          Esha Space ✨
-        </a>
-      </div>
-    </header>
-
-    <div class="section-title">Focus & Core Competencies</div>
-    <div class="grid">
-      <div class="card">
-        <h3>Digital Logic & Circuitry</h3>
-        <p>Boolean logic simplifications, canonical SOP/POS expressions, standard 74-series logic design, and semiconductor analysis.</p>
-        <div class="tag-list">
-          <span class="tag">Digital ICs</span>
-          <span class="tag">LTSpice</span>
-          <span class="tag">Circuits</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>Embedded Systems & Robotics</h3>
-        <p>Microcontroller implementations, GPS breakouts, sensor integration, motor speed control, and competition robotics hardware.</p>
-        <div class="tag-list">
-          <span class="tag">C / C++</span>
-          <span class="tag">Sensors</span>
-          <span class="tag">Robotics</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>Networking & Infrastructure</h3>
-        <p>Physical network deployment, Cat6 copper cabling, fiber optics, transceivers, and microwave test bench communication systems.</p>
-        <div class="tag-list">
-          <span class="tag">Networking</span>
-          <span class="tag">RF & Waveguide</span>
-          <span class="tag">Hardware</span>
-        </div>
-      </div>
+  <div class="main-card">
+    
+    <!-- Profile Photo -->
+    <div class="avatar-wrapper">
+      <img src="profile.jpg" alt="Profile" class="avatar" onerror="this.src='photo1.jpg'">
     </div>
 
-    <footer>
-      <div>&copy; 2026 Omabedor • Hosted on GitHub Pages</div>
-      <div style="display: flex; gap: 16px;">
-        <a href="https://github.com/akarui-uks" target="_blank">GitHub</a>
-        <a href="https://www.linkedin.com" target="_blank">LinkedIn</a>
-        <a href="https://esha.omabedor.space">Esha Board</a>
-      </div>
-    </footer>
+    <!-- Name -->
+    <h1>Sankang Basumatary</h1>
+
+    <!-- Vault Link -->
+    <a href="birthday.html" target="_blank" rel="noopener noreferrer" class="vault-link">
+      <span>oma bedor ⚡</span>
+    </a>
+
+    <div class="divider"></div>
+
+    <!-- Contacts (GitHub, LinkedIn, Instagram) -->
+    <div class="section-tag">Connect</div>
+    <div class="social-row">
+      
+      <!-- GitHub -->
+      <a href="https://github.com/akarui-uks" target="_blank" rel="noopener noreferrer" class="social-btn" title="GitHub" aria-label="GitHub">
+        <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </a>
+
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/in/ujjwal-kr-swargiary-53b837354/" target="_blank" rel="noopener noreferrer" class="social-btn" title="LinkedIn" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+      </a>
+
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/lazy.xiaowu/" target="_blank" rel="noopener noreferrer" class="social-btn" title="Instagram" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+
+    </div>
+
+    <!-- Useful Links -->
+    <div class="section-tag">Useful Links</div>
+    <div class="links-grid">
+      
+      <!-- Arcade -->
+      <a href="#arcade" class="useful-btn">
+        <span>🕹️</span> Arcade
+      </a>
+
+      <!-- Tune -->
+      <a href="#tune" class="useful-btn">
+        <span>🎧</span> Tune
+      </a>
+
+    </div>
 
   </div>
 
